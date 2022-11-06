@@ -1,9 +1,19 @@
+using LoLHelper.Interfaces;
+using LoLHelper.Models;
+using LoLHelper.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<LolHelperContext>(options =>
+    options.UseSqlServer(connectionString));
+builder.Services.AddTransient<IDataProvider, DataProvider>();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
