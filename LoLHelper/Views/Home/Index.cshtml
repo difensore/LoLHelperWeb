@@ -1,15 +1,27 @@
 ﻿@model List<Champ>
-}
-@foreach (var item in Model)
-{
-<div class="col">
-     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="data:image;base64,@item.Image" height="300" alt="Card image cap">
-          <div class="card-body">
-              <h5 class="card-title">@item.Name</h5>               
-                  <a asp-action="Description" asp-route-product="@item.Id" class="btn btn-primary">Overwiev</a>
-          </div>
-     </div>
- </div>    
-}
+
+<div class="app-main-content container-fluid">
+            <div class="position-absolute-flex">
+                <div class="scrollable">
+                    <div id="scroll-content-demo" class="d-flex flex-column flex-grow-1">
+                        <div class="row">                           
+                            @foreach (var item in Model)
+                            {
+                            <div class="col">
+                                 <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="data:image;base64,@item.Image" height="300" alt="Card image cap">
+                                      <div class="card-body">
+                                          <h5 class="card-title">@item.Name</h5>               
+                                              <a asp-action="Description" asp-route-champ="@item.Id" class="btn btn-primary">Overwiev</a>
+                                      </div>
+                                 </div>
+                             </div>    
+                    
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 

@@ -1,0 +1,31 @@
+﻿@model PickManager
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+          <h5 class="card-title">@Model.champ.Name</h5>
+              <img class="card-img-top" src="data:image;base64,@Model.champ.Image" height="300" alt="Card image cap">    
+      </div>
+      <div class="card" >
+          <h5 class="card-title">Runes</h5>
+           <img class="w3-round" src="data:image;base64,@Model.MainrRune" alt="Card image cap">  
+           
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card" >
+          <h5 class="card-title">Abilities</h5>
+            <p>Q:@Model.champ.Q</p>
+            <p>W:@Model.champ.W</p> 
+            <p>E:@Model.champ.E</p> 
+            <p>R:@Model.champ.R</p>  
+        </div>
+    </div>
+
+    </>
+    <div class="col-sm">
+     <img class="w3-round" src="data:image;base64,@Model.MainrRune" alt="Card image cap"> 
+    </div>
+  </div>
+</div>
+    
