@@ -25,14 +25,17 @@ namespace LoLHelper.Services
             {
                 pick = pick,
                 champ= await db.Champs.FirstAsync(x=>x.Id==champ),
-                MainrRune= await db.MainRunes.FirstAsync(x=>x.Id==runesbuild.MainrRune),
+                MainRune= await db.MainRunes.FirstAsync(x=>x.Id==runesbuild.MainrRune),
                 SecondMainRune = await db.MainRunes.FirstAsync(x => x.Id == runesbuild.SecondMainRune),
                 FirstRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.FirstRune),
                 SecondRune =await db.Runes.FirstAsync(x => x.Id == runesbuild.SecondRune),
                 ThirdRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.ThirdRune),
                 FourthRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.FourthRune),
+                FirstRuneS = await db.Runes.FirstAsync(x=>x.Id==runesbuild.FirstRuneS),
+                SecondRuneS = await db.Runes.FirstAsync(x => x.Id == runesbuild.SecondRuneS),
                 FirstExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.FirstExtraRune),
-                SecondExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.SecondExtraRune)
+                SecondExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.SecondExtraRune),
+                ThirdExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.ThirdExtraRune)
             };
             return pickM;
         }

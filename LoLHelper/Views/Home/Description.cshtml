@@ -7,9 +7,37 @@
               <img class="card-img-top" src="data:image;base64,@Model.champ.Image" height="300" alt="Card image cap">    
       </div>
       <div class="card" >
-          <h5 class="card-title">Runes</h5>
-           <img class="w3-round" src="data:image;base64,@Model.MainrRune" alt="Card image cap">  
-           
+          <h5 class="cardt-title" >Runes</h5>         
+           <table>
+           <tbody>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.MainRune.Image" width="50" height="50" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondMainRune.Image" width="50" height="50" alt="Card image cap"></td>
+    </tr>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstRune.Image" width="40" height="40" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstRuneS.Image" width="30" height="30" alt="Card image cap"></td>
+    </tr>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondRune.Image" width="30" height="30" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondRuneS.Image" width="30" height="30" alt="Card image cap"></td>
+    </tr>
+     <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdRune.Image" width="30" height="30" alt="Card image cap"></td>
+       <td rowspan="2">
+           <div class="rounded mx-auto d-block">
+           <img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstExtraRune.Image" width="30" height="30" alt="Card image cap">
+           <img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondExtraRune.Image" width="30" height="30" alt="Card image cap">
+           <img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdExtraRune.Image" width="30" height="30" alt="Card image cap">
+           </div>           
+       </td>
+    </tr>
+      <tr>
+      <td> <img class="rounded mx-auto d-block" src="data:image;base64,@Model.FourthRune.Image" width="30" height="30" alt="Card image cap"></td>    
+      <td rowspan="2"></td>
+    </tr>
+  </tbody>
+</table>
         </div>
     </div>
     <div class="col-sm-6">
@@ -21,10 +49,10 @@
             <p>R:@Model.champ.R</p>  
         </div>
     </div>
-
-    </>
-    <div class="col-sm">
-     <img class="w3-round" src="data:image;base64,@Model.MainrRune" alt="Card image cap"> 
+    <div class="card" style="width: 18rem;">
+          <h5 class="card-title">Items:</h5>
+              <img class="card-img-top" src="data:image;base64,@Model.champ.Image" height="300" alt="Card image cap">    
+      </div>     
     </div>
   </div>
 </div>

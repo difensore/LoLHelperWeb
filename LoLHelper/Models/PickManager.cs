@@ -4,7 +4,7 @@
     {
         public Pick pick {get; set;}
         public Champ champ {get; set;}
-        public MainRune MainrRune {get; set;}
+        public MainRune MainRune {get; set;}
         public MainRune SecondMainRune { get; set; }
         public Rune FirstRune {get; set; }
         public Rune SecondRune { get; set; }
