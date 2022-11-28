@@ -23,6 +23,14 @@ namespace LoLHelper.Controllers
         {
             return View(_dataprovider.GetChampAsync(champ).Result);
         }
+        public IActionResult DescriptionItem(int item)
+        {
+            return View(_dataprovider.GetItemAsync(item).Result);
+        }
+        public IActionResult Items()
+        {
+            return View(_dataprovider.GetItems());
+        }
 
         public IActionResult Privacy()
         {

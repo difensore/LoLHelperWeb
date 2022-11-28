@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card" >
+        <div class="card"  >
           <h5 class="card-title">Abilities</h5>
             <p>Q:@Model.champ.Q</p>
             <p>W:@Model.champ.W</p> 
@@ -51,9 +51,23 @@
     </div>
     <div class="card" style="width: 18rem;">
           <h5 class="card-title">Items:</h5>
-              <img class="card-img-top" src="data:image;base64,@Model.champ.Image" height="300" alt="Card image cap">    
+          <table>
+           <tbody>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstStartedItem.Image" width="70" height="70" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondStartedItem.Image" width="70" height="70" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdStartedItem.Image" width="70" height="70" alt="Card image cap"></td>
+    </tr>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstMainItem.Image" width="70" height="70" alt="Card image cap"></td>
+       <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondMainItem.Image" width="70" height="70" alt="Card image cap"></td>
+       <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdMainItem.Image" width="70" height="70" alt="Card image cap"></td>
+    </tr>    
+  </tbody>
+</table>
+       <img class="rounded mx-auto d-block" src="data:image;base64,@Model.FivthMainItem.Image" width="70" height="70" alt="Card image cap">   
       </div>     
     </div>
   </div>
-</div>
+
     

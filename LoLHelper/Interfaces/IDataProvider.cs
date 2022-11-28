@@ -6,5 +6,7 @@ namespace LoLHelper.Interfaces
     {
         public List<Champ> GetChamps();
         public Task<PickManager> GetChampAsync(int champ);
+        public List<Item> GetItems();
+        public Task<Item> GetItemAsync(int id);
     }
 }
