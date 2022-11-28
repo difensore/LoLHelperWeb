@@ -23,6 +23,10 @@ namespace LoLHelper.Controllers
         {
             return View(_dataprovider.GetChampAsync(champ).Result);
         }
+        public IActionResult Contrpick(string champname)
+        {            
+            return RedirectToAction("Description", "Home", new { champ = _dataprovider.GetContrPickAsync(champname).Result }); ;
+        }
         public IActionResult DescriptionItem(int item)
         {
             return View(_dataprovider.GetItemAsync(item).Result);

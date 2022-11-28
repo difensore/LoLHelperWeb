@@ -25,8 +25,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Items">Items</a>
                         </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Statistics</a>
+                        </li>
+                         <li>
+                                <form asp-controller="Home" asp-action="Contrpick">
+                                  <div class="input-group">
+                                     <input type="text" class="form-control" name="champname" placeholder="Find contrpick:">                                        
+                                          <button class=" btn-primary" type="submit">
+                                            <p class="align-content-lg-center">Search</p>
+                                          </button>                                       
+                                  </div>
+                                </form>
                         </li>
                     </ul>
                 </div>

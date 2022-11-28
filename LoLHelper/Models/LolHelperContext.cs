@@ -66,7 +66,7 @@ namespace LoLHelper.Models
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Contr1).HasColumnName("Contr");
+                entity.Property(e => e.Contr1).HasColumnName("Contr1");
 
                 entity.Property(e => e.Description).HasColumnType("text");
 
