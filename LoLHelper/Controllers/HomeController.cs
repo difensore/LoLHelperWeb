@@ -24,8 +24,11 @@ namespace LoLHelper.Controllers
             return View(_dataprovider.GetChampAsync(champ).Result);
         }
         public IActionResult Contrpick(string champname)
-        {            
-            return RedirectToAction("Description", "Home", new { champ = _dataprovider.GetContrPickAsync(champname).Result }); ;
+        {
+            var contrpick = _dataprovider.GetContrPickAsync(champname).Result;
+            if(contrpick!=0)
+            return RedirectToAction("Description", "Home", new { champ = contrpick });
+            return RedirectToAction("ErrorWithContr", "Home");
         }
         public IActionResult DescriptionItem(int item)
         {
@@ -36,7 +39,7 @@ namespace LoLHelper.Controllers
             return View(_dataprovider.GetItems());
         }
 
-        public IActionResult Privacy()
+        public IActionResult ErrorWithContr()
         {
             return View();
         }

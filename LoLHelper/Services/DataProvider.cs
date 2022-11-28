@@ -29,10 +29,17 @@ namespace LoLHelper.Services
         }
         public async Task<int> GetContrPickAsync(string champ)
         {
-            var champC = db.Champs.First(x => x.Name == champ);            
-            var contrpick= await db.Contrs.FirstAsync(x => x.Champ == champC.Id);
-            var pick = await db.Picks.FirstAsync(x => x.Id == contrpick.Id);
-            return pick.Champ;
+            try
+            {
+                var champC = db.Champs.First(x => x.Name == champ);
+                var contrpick = await db.Contrs.FirstAsync(x => x.Champ == champC.Id);
+                var pick = await db.Picks.FirstAsync(x => x.Id == contrpick.Id);
+                return pick.Champ;
+            }
+            catch
+            {
+                return 0;
+            }
         }
         public async Task<PickManager> GetChampAsync(int champ)
         {
