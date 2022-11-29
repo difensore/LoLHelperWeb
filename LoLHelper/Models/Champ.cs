@@ -19,6 +19,7 @@ namespace LoLHelper.Models
         public string R { get; set; } = null!;
         public string Passive { get; set; } = null!;
         public string? Image { get; set; }
+        public string? Link { get; set; }
 
         public virtual ICollection<Contr> Contrs { get; set; }
         public virtual ICollection<Pick> Picks { get; set; }

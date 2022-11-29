@@ -1,13 +1,13 @@
 ﻿@model PickManager
 <div class="container">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-md-auto">
       <div class="card" style="width: 18rem;">
-          <h5 class="card-title">@Model.champ.Name</h5>
+          <h5 class="card-title text-center">@Model.champ.Name</h5>
               <img class="card-img-top" src="data:image;base64,@Model.champ.Image" height="300" alt="Card image cap">    
       </div>
-      <div class="card" >
-          <h5 class="cardt-title" >Runes</h5>         
+      <div class="card" style="width: 18rem;" >
+          <h5 class="cardt-title text-center" >Runes</h5>         
            <table>
            <tbody>
     <tr>
@@ -40,17 +40,24 @@
 </table>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="card"  >
-          <h5 class="card-title">Abilities</h5>
+    <div class="col-md-auto">
+        <div class="card" style="width: 35rem;">
+          <h5 class="card-title text-center">Abilities</h5>
             <p>Q:@Model.champ.Q</p>
             <p>W:@Model.champ.W</p> 
             <p>E:@Model.champ.E</p> 
             <p>R:@Model.champ.R</p>  
         </div>
-    </div>
+        <div class="card" style="width: 35rem;">
+            <h5 class="card-title text-center">Spotlight</h5>
+            <div class="embed-responsive embed-responsive-16by9 text-center">
+                 <iframe class="embed-responsive-item" src="@("https://www.youtube.com/embed/"+Model.champ.Link)" width="533" height="300" allowfullscreen></iframe>
+            </div>
+        </div>
+</div>    
+    <div class="col-md-auto">
     <div class="card" style="width: 18rem;">
-          <h5 class="card-title">Items:</h5>
+          <h5 class="card-title text-center">Items:</h5>
           <table>
            <tbody>
     <tr>
@@ -69,5 +76,6 @@
       </div>     
     </div>
   </div>
-
+  </div>
+  
     
