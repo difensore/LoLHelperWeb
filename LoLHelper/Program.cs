@@ -1,6 +1,7 @@
 using LoLHelper.Interfaces;
 using LoLHelper.Models;
 using LoLHelper.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<LolHelperContext>(options =>
     options.UseSqlServer(connectionString));
+/*builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<LolHelperContext>();*/
 builder.Services.AddTransient<IDataProvider, DataProvider>();
 
 var app = builder.Build();
@@ -28,7 +31,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();    
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

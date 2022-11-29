@@ -1,7 +1,7 @@
 ﻿using LoLHelper.Interfaces;
-using LoLHelper.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using LoLHelper.Models;
 
 namespace LoLHelper.Services
 {

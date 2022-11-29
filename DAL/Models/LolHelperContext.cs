@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace LoLHelper.Models
 {
-    public partial class LolHelperContext : DbContext
+    public partial class LolHelperContext :DbContext
     {
         public LolHelperContext()
         {
