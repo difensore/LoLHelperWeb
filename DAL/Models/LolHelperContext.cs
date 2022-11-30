@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace LoLHelper.Models
 {
-    public partial class LolHelperContext :DbContext
+    public partial class LolHelperContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         public LolHelperContext()
         {
@@ -39,6 +41,7 @@ namespace LoLHelper.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Champ>(entity =>
             {
                 entity.ToTable("Champ");
