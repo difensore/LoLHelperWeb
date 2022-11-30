@@ -1,7 +1,10 @@
-﻿namespace LoLHelper.Interfaces
+﻿using DAL.ViewModels;
+using Microsoft.AspNetCore.Identity;
+
+namespace LoLHelper.Interfaces
 {
     public interface IIdentityProvider
     {
-        public int CreateUser();
+        public Task<Dictionary<IdentityResult, IdentityUser>> CreateUserAsync(RegisterViewModel model);
     }
 }

@@ -11,8 +11,10 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<LolHelperContext>(options =>
     options.UseSqlServer(connectionString));
-/*builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<LolHelperContext>();*/
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts => {
+    opts.Password.RequiredLength = 6;
+})
+    .AddEntityFrameworkStores<LolHelperContext>();
 builder.Services.AddTransient<IDataProvider, DataProvider>();
 builder.Services.AddTransient<IIdentityProvider, IdentityProvider>();
 

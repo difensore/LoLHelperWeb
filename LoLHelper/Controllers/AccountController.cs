@@ -12,13 +12,13 @@ namespace LoLHelper.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IDataProvider _dataprovider;
+        private readonly IIdentityProvider _identityprovider;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IDataProvider dataProvider)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IIdentityProvider identityProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _dataprovider = dataProvider;
+            _identityprovider = identityProvider;
         }
         [HttpGet]
         public IActionResult Register()
@@ -30,18 +30,17 @@ namespace LoLHelper.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = new IdentityUser { Email = model.Email, UserName = model.Email };
-                // добавляем пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var dictionary = _identityprovider.CreateUserAsync(model).Result;
+
+                if (dictionary.ElementAt(1).Key.Succeeded)
                 {
                     // установка куки
-                    await _signInManager.SignInAsync(user, false);
+                    await _signInManager.SignInAsync(dictionary.ElementAt(1).Value, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach (var error in result.Errors)
+                    foreach (var error in dictionary.ElementAt(1).Key.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
