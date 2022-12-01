@@ -9,14 +9,12 @@ namespace LoLHelper.Controllers
 
 {
     public class AccountController:Controller
-    {
-        private readonly UserManager<IdentityUser> _userManager;
+    {        
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IIdentityProvider _identityprovider;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IIdentityProvider identityProvider)
-        {
-            _userManager = userManager;
+        public AccountController(SignInManager<IdentityUser> signInManager, IIdentityProvider identityProvider)
+        {            
             _signInManager = signInManager;
             _identityprovider = identityProvider;
         }
@@ -32,21 +30,28 @@ namespace LoLHelper.Controllers
             {
                 var dictionary = _identityprovider.CreateUserAsync(model).Result;
 
-                if (dictionary.ElementAt(1).Key.Succeeded)
+                if (dictionary.ElementAt(0).Key.Succeeded)
                 {
                     // установка куки
-                    await _signInManager.SignInAsync(dictionary.ElementAt(1).Value, false);
+                    await _signInManager.SignInAsync(dictionary.ElementAt(0).Value, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach (var error in dictionary.ElementAt(1).Key.Errors)
+                    foreach (var error in dictionary.ElementAt(0).Key.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
             }
             return View(model);
+        }
+
+        
+        public async Task<IActionResult> LogOutAsync()
+        { 
+            await _signInManager.SignOutAsync();            
+            return RedirectToAction("Index", "Home");
         }
     }
 }

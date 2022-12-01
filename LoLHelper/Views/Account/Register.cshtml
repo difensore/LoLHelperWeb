@@ -1,11 +1,17 @@
 ﻿@using DAL.ViewModels
 @model RegisterViewModel
-<h2>Register new User</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
+<div class="container">
+  <div class="row">
+      <div class="col-md">
+      </div>
+      <div class="col-md-auto">
+          <div class="card" style="width: 35rem;">
+              <h5 class="card-title text-center">Registration</h5>
+          <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
+        <input class="text-center" asp-for="Email"/>
         <span asp-validation-for="Email"></span>
     </div>    
     <div>
@@ -22,3 +28,9 @@
         <input type="submit" value="Registration" />
     </div>
 </form>
+        </div>
+      </div>
+      <div class="col-md">
+      </div>
+  </div>
+</div>
