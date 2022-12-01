@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using DAL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoLHelper.Controllers
 
@@ -11,16 +12,16 @@ namespace LoLHelper.Controllers
     public class AccountController:Controller
     {        
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IIdentityProvider _identityprovider;
+        private readonly IIdentityProvider _identityprovider;              
 
         public AccountController(SignInManager<IdentityUser> signInManager, IIdentityProvider identityProvider)
         {            
             _signInManager = signInManager;
-            _identityprovider = identityProvider;
+            _identityprovider = identityProvider;                      
         }
         [HttpGet]
         public IActionResult Register()
-        {
+        {            
             return View();
         }
         [HttpPost]
@@ -31,9 +32,8 @@ namespace LoLHelper.Controllers
                 var dictionary = _identityprovider.CreateUserAsync(model).Result;
 
                 if (dictionary.ElementAt(0).Key.Succeeded)
-                {
-                    // установка куки
-                    await _signInManager.SignInAsync(dictionary.ElementAt(0).Value, false);
+                {                    
+                    await _signInManager.SignInAsync(dictionary.ElementAt(0).Value, false);                   
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -72,6 +72,7 @@ namespace LoLHelper.Controllers
             }
             return View(model);
         }
+        [Authorize]
         public async Task<IActionResult> LogOutAsync()
         { 
             await _signInManager.SignOutAsync();            

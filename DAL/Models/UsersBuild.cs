@@ -10,6 +10,6 @@ namespace LoLHelper.Models
         public int BuildId { get; set; }
 
         public virtual Pick Build { get; set; } = null!;
-        public virtual User User { get; set; } = null!;
+        //public virtual User User { get; set; } = null!;
     }
 }

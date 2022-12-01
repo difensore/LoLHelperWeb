@@ -1,6 +1,8 @@
 ﻿using LoLHelper.Interfaces;
 using LoLHelper.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
 
 namespace LoLHelper.Controllers
@@ -33,12 +35,11 @@ namespace LoLHelper.Controllers
         public IActionResult DescriptionItem(int item)
         {
             return View(_dataprovider.GetItemAsync(item).Result);
-        }
+        }        
         public IActionResult Items()
         {
             return View(_dataprovider.GetItems());
         }
-
         public IActionResult ErrorWithContr()
         {
             return View();

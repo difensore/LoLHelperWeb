@@ -26,8 +26,7 @@ namespace LoLHelper.Models
         public virtual DbSet<Pick> Picks { get; set; } = null!;
         public virtual DbSet<Rune> Runes { get; set; } = null!;
         public virtual DbSet<RunesBuild> RunesBuilds { get; set; } = null!;
-        public virtual DbSet<Spell> Spells { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Spell> Spells { get; set; } = null!;        
         public virtual DbSet<UsersBuild> UsersBuilds { get; set; } = null!;
 
       /*  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -294,10 +293,7 @@ namespace LoLHelper.Models
                 entity.Property(e => e.Name).IsUnicode(false);
             });
 
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
+            
 
             modelBuilder.Entity<UsersBuild>(entity =>
             {
@@ -309,11 +305,11 @@ namespace LoLHelper.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UsersBuilds_Pick");
 
-                entity.HasOne(d => d.User)
+               /* entity.HasOne(d => d.User)
                     .WithMany(p => p.UsersBuilds)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UsersBuilds_Users");
+                    .HasConstraintName("FK_UsersBuilds_Users");*/
             });
 
             OnModelCreatingPartial(modelBuilder);
