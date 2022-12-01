@@ -27,3 +27,6 @@ body {
 footer {
     background-color: #efefef;
 }
+form {
+    text-align: center;
+}

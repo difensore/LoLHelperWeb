@@ -48,6 +48,30 @@ namespace LoLHelper.Controllers
         }
 
         
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result =
+                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {                   
+                        return RedirectToAction("Index", "Home");                    
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Wrong Login or Password");
+                }
+            }
+            return View(model);
+        }
         public async Task<IActionResult> LogOutAsync()
         { 
             await _signInManager.SignOutAsync();            
