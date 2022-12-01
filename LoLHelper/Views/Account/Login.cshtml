@@ -1,31 +1,30 @@
 ﻿@using DAL.ViewModels
-@model RegisterViewModel
+@model LoginViewModel
 <div class="container">
   <div class="row">
       <div class="col-md">
       </div>
       <div class="col-md-auto">
           <div class="card" style="width: 15rem;">
-              <h5 class="card-title text-center">Sing Up</h5>
-          <form method="post" asp-controller="Account" asp-action="Register">
+              <h5 class="card-title text-center">Sign In:</h5>
+          <form method="post" asp-controller="Account" asp-action="Login">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Email"></label><br />
-        <input asp-for="Email"/>
+        <input class="text-center" asp-for="Email"/>
         <span asp-validation-for="Email"></span>
     </div>    
     <div>
         <label asp-for="Password"></label><br />
         <input asp-for="Password" />
         <span asp-validation-for="Password"></span>
+    </div>    
+      <div>
+        <label asp-for="RememberMe"></label><br />
+        <input asp-for="RememberMe"/>
     </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-    <div>
-        <input class="btn btn-primary" type="submit" value="Sign Up"/>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Sign In" />
     </div>
 </form>
         </div>
