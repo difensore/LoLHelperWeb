@@ -1,0 +1,25 @@
+﻿@using DAL.ViewModels
+@model PickViewModel
+<div class="container">
+  <div class="row">
+      <div class="col-md">
+      </div>
+      <div class="col-md-auto">
+          <div class="card" style="width: 15rem;">
+              <h5 class="card-title text-center">Create your build:</h5>
+          <form method="post" asp-controller="Build" asp-action="Build">
+    <div asp-validation-summary="ModelOnly"></div>
+    <select asp-for="SelectedChamp" asp-items="@Model.champs">
+        <option>Choose champion</option>
+    </select>
+    <input type="submit"/>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Sign In" />
+    </div>
+</form>
+        </div>
+      </div>
+      <div class="col-md">
+      </div>
+  </div>
+</div>

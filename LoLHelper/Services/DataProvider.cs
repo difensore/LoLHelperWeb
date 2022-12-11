@@ -17,6 +17,11 @@ namespace LoLHelper.Services
             var champ= db.Champs.ToList();
             return champ;
         }
+        public List<Spell> GetSpells()
+        {
+            var spell = db.Spells.ToList();
+            return spell;
+        }
         public List<Item> GetItems()
         {
             var item = db.Items.ToList();
@@ -69,6 +74,21 @@ namespace LoLHelper.Services
                 FivthMainItem = await db.Items.FirstAsync(x => x.Id == pick.FivthMainItem)
             };
             return pickM;
+        }
+        public List<MainRune> GetAllMainRunes()
+        {
+            var MainRune = db.MainRunes.ToList();
+            return MainRune;
+        }
+        public List<Rune> GetAllRunes()
+        {
+            var Rune = db.Runes.ToList();
+            return Rune;
+        }
+        public List<ExtraRune> GetAlExtraRunes()
+        {
+            var MainRune = db.ExtraRunes.ToList();
+            return MainRune;
         }
     }
 }

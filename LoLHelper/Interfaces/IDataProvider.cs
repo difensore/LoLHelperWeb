@@ -9,5 +9,10 @@ namespace LoLHelper.Interfaces
         public List<Item> GetItems();
         public Task<Item> GetItemAsync(int id);
         public Task<int> GetContrPickAsync(string champ);
+        public List<Spell> GetSpells();
+        public List<MainRune> GetAllMainRunes();
+        public List<Rune> GetAllRunes();
+        public List<ExtraRune> GetAlExtraRunes();
+
     }
 }

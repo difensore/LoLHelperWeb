@@ -1,20 +1,67 @@
-﻿using LoLHelper.Interfaces;
+﻿using DAL.ViewModels;
+using LoLHelper.Interfaces;
 using LoLHelper.Models;
 using LoLHelper.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 using System.Diagnostics;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
+using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
+
 namespace LoLHelper.Controllers
 {
-    public class BuildController:Controller
+    public class BuildController : Controller
     {
         private readonly IDataProvider _dataprovider;
+
         public BuildController(IDataProvider datapovider)
         {
-            
             _dataprovider = datapovider;
-        }
 
+        }
+        [HttpGet]
+        public IActionResult Build()
+        {
+            PickViewModel _pickViewModel = new PickViewModel();
+            var champs = _dataprovider.GetChamps();
+            var items = _dataprovider.GetItems();
+            var spells = _dataprovider.GetSpells();
+            var runes = _dataprovider.GetAllRunes();
+            var mainrunes = _dataprovider.GetAllMainRunes();
+            var extrarunes = _dataprovider.GetAlExtraRunes();
+            foreach (var c in champs)
+            {
+                _pickViewModel.champs.Add(new SelectListItem { Text = c.Name, Value = c.Id.ToString() });
+            }
+            foreach (var i in items)
+            {
+                _pickViewModel.items.Add(new SelectListItem { Text = i.Name, Value = i.Id.ToString() });
+            }
+            foreach (var s in spells)
+            {
+                _pickViewModel.spells.Add(new SelectListItem { Text = s.Name, Value = s.Id.ToString() });
+            }
+            foreach (var r in runes)
+            {
+                _pickViewModel.runes.Add(new SelectListItem { Text = r.Name, Value = r.Id.ToString() });
+            }
+            foreach (var mr in mainrunes)
+            {
+                _pickViewModel.mainRunes.Add(new SelectListItem { Text = mr.Name, Value = mr.Id.ToString() });
+            }
+            foreach (var er in extrarunes)
+            {
+                _pickViewModel.extraRunes.Add(new SelectListItem { Text = er.Name, Value = er.Id.ToString() });
+            }
+            return View(_pickViewModel);
+        }
+        [HttpPost]
+        public IActionResult Build(PickViewModel pickViewModel)
+        {
+            int id = pickViewModel.SelectedChamp;
+            return View();
+        }
     }
 }
