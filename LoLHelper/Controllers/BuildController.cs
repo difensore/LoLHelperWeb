@@ -3,10 +3,12 @@ using LoLHelper.Interfaces;
 using LoLHelper.Models;
 using LoLHelper.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 using System.Diagnostics;
+using System.Security.Claims;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 using SelectListItem = Microsoft.AspNetCore.Mvc.Rendering.SelectListItem;
 
@@ -15,11 +17,12 @@ namespace LoLHelper.Controllers
     public class BuildController : Controller
     {
         private readonly IDataProvider _dataprovider;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public BuildController(IDataProvider datapovider)
+        public BuildController(IDataProvider datapovider, UserManager<IdentityUser> userManager)
         {
             _dataprovider = datapovider;
-
+            _userManager=userManager;
         }
         [HttpGet]
         public IActionResult Build()
@@ -60,7 +63,7 @@ namespace LoLHelper.Controllers
         [HttpPost]
         public IActionResult Build(PickViewModel pickViewModel)
         {
-            int id = pickViewModel.SelectedChamp;
+            pickViewModel.currentUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View();
         }
     }
