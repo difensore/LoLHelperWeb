@@ -50,7 +50,7 @@ namespace LoLHelper.Services
                     FivthMainItem = model.SelectedFivthMainItem
                 });
                 db.UsersBuilds.Add(new UsersBuild { BuildId = idp, UserId = model.currentUser });
-
+                db.SaveChanges();
             }
             catch
             {

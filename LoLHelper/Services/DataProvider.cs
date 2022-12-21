@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using LoLHelper.Models;
+using DAL.ViewModels;
+using DAL.Models;
 
 namespace LoLHelper.Services
 {
@@ -89,6 +91,18 @@ namespace LoLHelper.Services
         {
             var MainRune = db.ExtraRunes.ToList();
             return MainRune;
+        }
+        public List<UserBuildsViewModel> GetAllUserBuilds(string user)
+        {
+            List<UserBuildsViewModel> model = new List<UserBuildsViewModel>();
+            var some = db.UsersBuilds.Where(p => p.UserId == user);
+            foreach (var item in some)
+            {
+                var _pick = db.Picks.First(p => p.Id == item.BuildId);
+                var _champ = db.Champs.First(p => p.Id == _pick.Champ);
+                model.Add(new UserBuildsViewModel { pick = _pick,champ=_champ });
+            }
+            return model;
         }
     }
 }
