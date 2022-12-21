@@ -1,4 +1,25 @@
-﻿@page
-@model LoLHelper.Views.UserBuild.UserBuildModel
-@{
-}
+﻿@using DAL.Models
+@model List<UserBuildsViewModel>
+
+<div class="app-main-content container-fluid">
+            <div class="position-absolute-flex">
+                <div class="scrollable">
+                    <div id="scroll-content-demo" class="d-flex flex-column flex-grow-1">
+                        <div class="row">                           
+                    @foreach (var item in Model)
+                    {
+                                <div class="col">
+                                     <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="data:image;base64,@item.champ.Image" height="300" alt="Card image cap">
+                                          <div class="card-body">
+                                              <h5 class="card-title">@item.champ.Name</h5>               
+                                                      <a asp-controller="Home" asp-action="Description" asp-route-champ="@item.pick.Id"  asp-route-entity="0" class="btn btn-primary">Overview</a>
+                                          </div>
+                                     </div>
+                                 </div>   
+                    }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -18,11 +18,13 @@ namespace LoLHelper.Controllers
     {
         private readonly IDataProvider _dataprovider;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IPickBuilder _pb;
 
-        public BuildController(IDataProvider datapovider, UserManager<IdentityUser> userManager)
+        public BuildController(IDataProvider datapovider, UserManager<IdentityUser> userManager, IPickBuilder pb)
         {
             _dataprovider = datapovider;
             _userManager=userManager;
+            _pb=pb;
         }
         [HttpGet]
         public IActionResult Build()
@@ -61,10 +63,11 @@ namespace LoLHelper.Controllers
             return View(_pickViewModel);
         }
         [HttpPost]
-        public IActionResult Build(PickViewModel pickViewModel)
+        public RedirectToRouteResult Build(PickViewModel pickViewModel)
         {
             pickViewModel.currentUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return View();
+            _pb.CreateBuild(pickViewModel);
+            return RedirectToRoute(new { controller = "UserBuild", action = "UserBuild" });
         }
     }
 }

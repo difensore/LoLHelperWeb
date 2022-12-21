@@ -4,10 +4,11 @@ using System.Linq;
 using LoLHelper.Models;
 using DAL.ViewModels;
 using DAL.Models;
+using System.Reflection.PortableExecutable;
 
 namespace LoLHelper.Services
 {
-    public class DataProvider:IDataProvider
+    public class DataProvider : IDataProvider
     {
         private readonly LolHelperContext db;
         public DataProvider(LolHelperContext context)
@@ -16,7 +17,7 @@ namespace LoLHelper.Services
         }
         public List<Champ> GetChamps()
         {
-            var champ= db.Champs.ToList();
+            var champ = db.Champs.ToList();
             return champ;
         }
         public List<Spell> GetSpells()
@@ -48,34 +49,42 @@ namespace LoLHelper.Services
                 return 0;
             }
         }
-        public async Task<PickManager> GetChampAsync(int champ)
+        public async Task<PickManager> GetChampAsync(int champ, int entity)
         {
-             var pick = db.Picks.First(x => x.Champ == champ);
-            var runesbuild = db.RunesBuilds.First(x => x.Id == pick.RunesBuild);
-            PickManager pickM=new PickManager() 
+             Pick pick;
+            if (entity == 1)
             {
-                pick = pick,
-                champ= await db.Champs.FirstAsync(x=>x.Id==champ),
-                MainRune= await db.MainRunes.FirstAsync(x=>x.Id==runesbuild.MainrRune),
-                SecondMainRune = await db.MainRunes.FirstAsync(x => x.Id == runesbuild.SecondMainRune),
-                FirstRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.FirstRune),
-                SecondRune =await db.Runes.FirstAsync(x => x.Id == runesbuild.SecondRune),
-                ThirdRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.ThirdRune),
-                FourthRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.FourthRune),
-                FirstRuneS = await db.Runes.FirstAsync(x=>x.Id==runesbuild.FirstRuneS),
-                SecondRuneS = await db.Runes.FirstAsync(x => x.Id == runesbuild.SecondRuneS),
-                FirstExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.FirstExtraRune),
-                SecondExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.SecondExtraRune),
-                ThirdExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.ThirdExtraRune),
-                FirstStartedItem = await db.Items.FirstAsync(x=>x.Id==pick.FirstStartedItem),
-                SecondStartedItem = await db.Items.FirstAsync(x => x.Id == pick.SecondStartedItem),
-                ThirdStartedItem = await db.Items.FirstAsync(x => x.Id == pick.ThirdStartedItem),
-                FirstMainItem = await db.Items.FirstAsync(x => x.Id == pick.FirstMainItem),
-                SecondMainItem = await db.Items.FirstAsync(x => x.Id == pick.SecondMainItem),
-                ThirdMainItem = await db.Items.FirstAsync(x => x.Id == pick.ThirdMainItem),
-                FivthMainItem = await db.Items.FirstAsync(x => x.Id == pick.FivthMainItem)
-            };
-            return pickM;
+                 pick=db.Picks.First(x => x.Champ == champ);
+            }
+            else
+            {
+                pick=db.Picks.First(x => x.Id == champ);    
+            }                
+                var runesbuild = db.RunesBuilds.First(x => x.Id == pick.RunesBuild);
+                PickManager pickM = new PickManager()
+                {
+                    pick = pick,
+                    champ = await db.Champs.FirstAsync(x => x.Id == pick.Champ),
+                    MainRune = await db.MainRunes.FirstAsync(x => x.Id == runesbuild.MainrRune),
+                    SecondMainRune = await db.MainRunes.FirstAsync(x => x.Id == runesbuild.SecondMainRune),
+                    FirstRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.FirstRune),
+                    SecondRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.SecondRune),
+                    ThirdRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.ThirdRune),
+                    FourthRune = await db.Runes.FirstAsync(x => x.Id == runesbuild.FourthRune),
+                    FirstRuneS = await db.Runes.FirstAsync(x => x.Id == runesbuild.FirstRuneS),
+                    SecondRuneS = await db.Runes.FirstAsync(x => x.Id == runesbuild.SecondRuneS),
+                    FirstExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.FirstExtraRune),
+                    SecondExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.SecondExtraRune),
+                    ThirdExtraRune = await db.ExtraRunes.FirstAsync(x => x.Id == runesbuild.ThirdExtraRune),
+                    FirstStartedItem = await db.Items.FirstAsync(x => x.Id == pick.FirstStartedItem),
+                    SecondStartedItem = await db.Items.FirstAsync(x => x.Id == pick.SecondStartedItem),
+                    ThirdStartedItem = await db.Items.FirstAsync(x => x.Id == pick.ThirdStartedItem),
+                    FirstMainItem = await db.Items.FirstAsync(x => x.Id == pick.FirstMainItem),
+                    SecondMainItem = await db.Items.FirstAsync(x => x.Id == pick.SecondMainItem),
+                    ThirdMainItem = await db.Items.FirstAsync(x => x.Id == pick.ThirdMainItem),
+                    FivthMainItem = await db.Items.FirstAsync(x => x.Id == pick.FivthMainItem)
+                };
+                return pickM;         
         }
         public List<MainRune> GetAllMainRunes()
         {
@@ -95,14 +104,17 @@ namespace LoLHelper.Services
         public List<UserBuildsViewModel> GetAllUserBuilds(string user)
         {
             List<UserBuildsViewModel> model = new List<UserBuildsViewModel>();
-            var some = db.UsersBuilds.Where(p => p.UserId == user);
+            IQueryable<UsersBuild> some = db.UsersBuilds.Where(p => p.UserId == user);
             foreach (var item in some)
             {
+
                 var _pick = db.Picks.First(p => p.Id == item.BuildId);
                 var _champ = db.Champs.First(p => p.Id == _pick.Champ);
-                model.Add(new UserBuildsViewModel { pick = _pick,champ=_champ });
+                model.Add(new UserBuildsViewModel { pick = _pick, champ = _champ });
             }
             return model;
         }
+        
+
     }
 }

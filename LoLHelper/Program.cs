@@ -17,6 +17,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts => {
     .AddEntityFrameworkStores<LolHelperContext>();
 builder.Services.AddTransient<IDataProvider, DataProvider>();
 builder.Services.AddTransient<IIdentityProvider, IdentityProvider>();
+builder.Services.AddTransient<IPickBuilder, PickBuilder>();
 
 var app = builder.Build();
 

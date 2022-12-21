@@ -1,9 +1,10 @@
 ﻿using DAL.ViewModels;
+using LoLHelper.Interfaces;
 using LoLHelper.Models;
 
 namespace LoLHelper.Services
 {
-    public class PickBuilder
+    public class PickBuilder: IPickBuilder
     {
         private readonly LolHelperContext db;
 

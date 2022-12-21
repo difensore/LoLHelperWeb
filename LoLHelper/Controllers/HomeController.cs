@@ -21,15 +21,15 @@ namespace LoLHelper.Controllers
         {           
             return View(_dataprovider.GetChamps());
         }
-        public IActionResult Description(int champ)
+        public IActionResult Description(int champ, int entity)
         {
-            return View(_dataprovider.GetChampAsync(champ).Result);
+            return View(_dataprovider.GetChampAsync(champ, entity).Result);
         }
         public IActionResult Contrpick(string champname)
         {
             var contrpick = _dataprovider.GetContrPickAsync(champname).Result;
             if(contrpick!=0)
-            return RedirectToAction("Description", "Home", new { champ = contrpick });
+            return RedirectToAction("Description", "Home", new { champ = contrpick, entity=1 });
             return RedirectToAction("ErrorWithContr", "Home");
         }
         public IActionResult DescriptionItem(int item)
