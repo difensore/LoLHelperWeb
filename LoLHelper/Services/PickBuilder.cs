@@ -1,6 +1,7 @@
 ﻿using DAL.ViewModels;
 using LoLHelper.Interfaces;
 using LoLHelper.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LoLHelper.Services
 {
@@ -57,6 +58,17 @@ namespace LoLHelper.Services
             {
 
             }
+        }
+        public void DeleteBuild(int id)
+        {
+            Pick _pick = db.Picks.First(p=>p.Id==id);
+            UsersBuild ub=db.UsersBuilds.First(p=>p.BuildId==id);
+            if (_pick != null)
+            {
+                db.UsersBuilds.Remove(ub);
+                db.Picks.Remove(_pick);               
+                db.SaveChanges();
+            }           
         }
     }
 }
