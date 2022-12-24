@@ -63,12 +63,13 @@ namespace LoLHelper.Services
         {
             Pick _pick = db.Picks.First(p=>p.Id==id);
             UsersBuild ub=db.UsersBuilds.First(p=>p.BuildId==id);
-            if (_pick != null)
+            if (_pick != null && ub!=null)
             {
                 db.UsersBuilds.Remove(ub);
                 db.Picks.Remove(_pick);               
                 db.SaveChanges();
-            }           
+            }   
+            
         }
     }
 }
