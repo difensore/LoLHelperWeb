@@ -371,6 +371,27 @@ namespace DAL.Migrations
 
                     b.ToTable("UsersBuilds");
                 });
+            modelBuilder.Entity("LoLHelper.Models.Likes", b =>
+            {
+                b.Property<string>("Id")
+                    .HasColumnType("nvarchar(450)");
+
+                b.Property<int>("BuildId")
+                    .IsRequired()
+                    .HasColumnType("int");
+
+                b.Property<string>("UserId")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(450)");
+
+                b.HasKey("Id");
+
+                b.HasIndex("BuildId");
+
+                b.HasIndex("UserId");
+
+                b.ToTable("Likes");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -791,6 +812,24 @@ namespace DAL.Migrations
 
                     b.Navigation("User");
                 });
+            modelBuilder.Entity("LoLHelper.Models.Likes", b =>
+            {
+                b.HasOne("LoLHelper.Models.Pick", "Build")
+                    .WithMany("UsersBuilds")
+                    .HasForeignKey("BuildId")
+                    .IsRequired()
+                    .HasConstraintName("FK_UsersBuilds_Pick");
+
+                b.HasOne("LoLHelper.Models.User", "User")
+                    .WithMany("UsersBuilds")
+                    .HasForeignKey("UserId")
+                    .IsRequired()
+                    .HasConstraintName("FK_UsersBuilds_Users");
+
+                b.Navigation("Build");
+
+                b.Navigation("User");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
