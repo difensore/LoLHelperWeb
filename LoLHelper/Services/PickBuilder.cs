@@ -62,9 +62,11 @@ namespace LoLHelper.Services
         public void DeleteBuild(int id)
         {
             Pick _pick = db.Picks.First(p=>p.Id==id);
+            var likes= db.Likes.Where(p=>p.BuildId==id);
             UsersBuild ub=db.UsersBuilds.First(p=>p.BuildId==id);
             if (_pick != null && ub!=null)
             {
+                db.Likes.RemoveRange(likes);
                 db.UsersBuilds.Remove(ub);
                 db.Picks.Remove(_pick);               
                 db.SaveChanges();
