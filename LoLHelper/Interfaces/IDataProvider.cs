@@ -14,7 +14,8 @@ namespace LoLHelper.Interfaces
         public List<MainRune> GetAllMainRunes();
         public List<Rune> GetAllRunes();
         public List<ExtraRune> GetAlExtraRunes();
-        public List<UserBuildsViewModel> GetAllUserBuilds(string user);
+        public List<UserBuildsViewModel> GetAllUserBuilds(string user, string forwhat);
+        public void UpdateLike(string user, int build);
 
     }
 }

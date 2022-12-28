@@ -11,5 +11,7 @@ namespace DAL.Models
     {
         public Champ champ { get; set; }
         public Pick pick { get; set; }
+        public int like { get; set; }=0;
+        public bool currentUserLike { get; set; } = false;
     }
 }
