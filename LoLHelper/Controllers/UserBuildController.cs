@@ -18,7 +18,7 @@ namespace LoLHelper.Controllers
         }
         public IActionResult UserBuild()
         {            
-            return View(_provider.GetAllUserBuilds(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            return View(_provider.GetAllUserBuilds(User.FindFirstValue(ClaimTypes.NameIdentifier),"One"));
         }        
         public RedirectToRouteResult DelUserBuild(int id)
         {
@@ -27,7 +27,18 @@ namespace LoLHelper.Controllers
         }
         public IActionResult AllUserBuild()
         {
-            return View("Userbuild", _provider.GetAllUserBuilds("All"));
+            return View("Userbuild", _provider.GetAllUserBuilds( User.FindFirstValue(ClaimTypes.NameIdentifier), "All"));
         }
+        public RedirectToRouteResult Like(int build)
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (user == null)
+            {
+                return RedirectToRoute(new { controller = "Account", action = "login" });
+            } 
+            _provider.UpdateLike(User.FindFirstValue(ClaimTypes.NameIdentifier), build);
+            return RedirectToRoute(new { controller = "UserBuild", action = "AllUserBuild" });
+        }
+
     }
 }

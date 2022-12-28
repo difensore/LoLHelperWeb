@@ -4,13 +4,13 @@ using System.Linq;
 using LoLHelper.Models;
 using DAL.ViewModels;
 using DAL.Models;
-using System.Reflection.PortableExecutable;
 
 namespace LoLHelper.Services
 {
     public class DataProvider : IDataProvider
     {
         private readonly LolHelperContext db;
+        public static Guid NewGuid;
         public DataProvider(LolHelperContext context)
         {
             db = context;
@@ -101,11 +101,11 @@ namespace LoLHelper.Services
             var MainRune = db.ExtraRunes.ToList();
             return MainRune;
         }
-        public List<UserBuildsViewModel> GetAllUserBuilds(string user)
+        public List<UserBuildsViewModel> GetAllUserBuilds(string user,string forwhat)
         {                
                 List<UserBuildsViewModel> model = new List<UserBuildsViewModel>();
             IQueryable<UsersBuild> some = db.UsersBuilds.Where(p => p.UserId == user); 
-            if (user =="All")
+            if (forwhat =="All")
             {
                 some = db.UsersBuilds;                 
             }         
@@ -126,9 +126,22 @@ namespace LoLHelper.Services
                 }                                     
                     model.Add(new UserBuildsViewModel { pick = _pick, champ = _champ, like=_like, currentUserLike=_currentUserLike });
                 }
-                return model;
-            
-            
-        }       
+                return model;                       
+        }
+        
+        public void UpdateLike(string user, int build)
+        {            
+            try
+            {
+                var like = db.Likes.Where(p => p.UserId == user).First(p => p.BuildId == build);
+                db.Likes.Remove(like);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                db.Likes.Add(new Like { Id = Guid.NewGuid().ToString(), UserId = user, BuildId = build });
+                db.SaveChanges(); 
+            }            
+        }
     }
 }
