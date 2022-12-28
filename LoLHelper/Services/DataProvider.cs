@@ -102,19 +102,33 @@ namespace LoLHelper.Services
             return MainRune;
         }
         public List<UserBuildsViewModel> GetAllUserBuilds(string user)
-        {
-            List<UserBuildsViewModel> model = new List<UserBuildsViewModel>();
-            IQueryable<UsersBuild> some = db.UsersBuilds.Where(p => p.UserId == user);
-            foreach (var item in some)
+        {                
+                List<UserBuildsViewModel> model = new List<UserBuildsViewModel>();
+            IQueryable<UsersBuild> some = db.UsersBuilds.Where(p => p.UserId == user); 
+            if (user =="All")
             {
+                some = db.UsersBuilds;                 
+            }         
+                foreach (var item in some)
+                {
 
-                var _pick = db.Picks.First(p => p.Id == item.BuildId);
-                var _champ = db.Champs.First(p => p.Id == _pick.Champ);
-                model.Add(new UserBuildsViewModel { pick = _pick, champ = _champ });
-            }
-            return model;
-        }
-        
-
+                    var _pick = db.Picks.First(p => p.Id == item.BuildId);
+                    var _champ = db.Champs.First(p => p.Id == _pick.Champ);
+                int _like = db.Likes.Where(p => p.BuildId == _pick.Id).Count();
+                bool _currentUserLike = true;
+                try
+                {
+                    var curerentUserLikeChek = db.Likes.Where(p => p.UserId == user).First(p => p.BuildId == _pick.Id);
+                }
+                catch (Exception)
+                {
+                    _currentUserLike=false;
+                }                                     
+                    model.Add(new UserBuildsViewModel { pick = _pick, champ = _champ, like=_like, currentUserLike=_currentUserLike });
+                }
+                return model;
+            
+            
+        }       
     }
 }

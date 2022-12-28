@@ -14,6 +14,15 @@
                                               <h5 class="card-title">@item.champ.Name</h5>               
                                                       <a asp-controller="Home" asp-action="Description" asp-route-champ="@item.pick.Id"  asp-route-entity="0" class="btn btn-primary">Overview</a>
                                                           <a type="button" class="btn btn-primary"  asp-action="DelUserbuild" asp-route-id="@item.pick.Id" >Delete</a>
+                                                          @if (item.currentUserLike)
+                                    {
+                                        <a type="button" class="btn btn-primary"  asp-action="" asp-route-id="@item.pick.Id" >Likes: @item.like </a>
+                                    }
+                                    else
+                                    {
+                                        <a type="button" class="btn"  asp-action="" asp-route-id="@item.pick.Id" >Likes: @item.like </a>
+                                    }
+                                                          
                                           </div>
                                      </div>
                                  </div>   

@@ -25,5 +25,9 @@ namespace LoLHelper.Controllers
             _pickBuilder.DeleteBuild(id);
             return RedirectToRoute(new { controller = "UserBuild", action = "UserBuild" });
         }
+        public IActionResult AllUserBuild()
+        {
+            return View("Userbuild", _provider.GetAllUserBuilds("All"));
+        }
     }
 }
