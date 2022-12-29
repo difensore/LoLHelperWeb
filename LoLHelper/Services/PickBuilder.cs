@@ -20,6 +20,7 @@ namespace LoLHelper.Services
                 Random rnd = new Random();
                 int idr = rnd.Next(10000, 100000000);
                 int idp = rnd.Next(10000, 100000000);
+                int ub = rnd.Next(10000, 100000000);
                 db.RunesBuilds.Add(new RunesBuild
                 {
                     Id = idr,
@@ -51,7 +52,7 @@ namespace LoLHelper.Services
                     ThirdMainItem = model.SelectedThirdMainItem,
                     FivthMainItem = model.SelectedFivthMainItem
                 });
-                db.UsersBuilds.Add(new UsersBuild { BuildId = idp, UserId = model.currentUser });
+                db.UsersBuilds.Add(new UsersBuild {Id=ub, BuildId = idp, UserId = model.currentUser });
                 db.SaveChanges();
             }
             catch
@@ -66,9 +67,11 @@ namespace LoLHelper.Services
             UsersBuild ub=db.UsersBuilds.First(p=>p.BuildId==id);
             if (_pick != null && ub!=null)
             {
+                
                 db.Likes.RemoveRange(likes);
                 db.UsersBuilds.Remove(ub);
-                db.Picks.Remove(_pick);               
+                db.Picks.Remove(_pick);
+                db.RunesBuilds.Remove(db.RunesBuilds.First(p => p.Id == _pick.RunesBuild));
                 db.SaveChanges();
             }   
             

@@ -1,4 +1,6 @@
-﻿using LoLHelper.Interfaces;
+﻿using DAL.Models;
+using LoLHelper.Interfaces;
+using LoLHelper.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -25,9 +27,19 @@ namespace LoLHelper.Controllers
             _pickBuilder.DeleteBuild(id);
             return RedirectToRoute(new { controller = "UserBuild", action = "UserBuild" });
         }
-        public IActionResult AllUserBuild()
+        public IActionResult AllUserBuild(SortState sortOrder = SortState.NameAsc)
         {
-            return View("Userbuild", _provider.GetAllUserBuilds( User.FindFirstValue(ClaimTypes.NameIdentifier), "All"));
+            var model = _provider.GetAllUserBuilds(User.FindFirstValue(ClaimTypes.NameIdentifier), "All");
+            ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
+            ViewData["LikeSort"] = sortOrder == SortState.LikeAsc ? SortState.LikeDesc : SortState.LikeAsc;
+            model = sortOrder switch
+            {
+                SortState.NameDesc => model.OrderByDescending(s => s.champ.Name).ToList(),
+                SortState.LikeAsc => model.OrderBy(s => s.like).ToList(),
+                SortState.LikeDesc => model.OrderByDescending(s => s.like).ToList(),                
+                _ => model.OrderBy(s => s.champ.Name).ToList(),
+            };
+            return View("Userbuild",model );
         }
         public RedirectToRouteResult Like(int build)
         {
@@ -39,6 +51,5 @@ namespace LoLHelper.Controllers
             _provider.UpdateLike(User.FindFirstValue(ClaimTypes.NameIdentifier), build);
             return RedirectToRoute(new { controller = "UserBuild", action = "AllUserBuild" });
         }
-
     }
 }

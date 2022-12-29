@@ -1,5 +1,14 @@
 ﻿@using DAL.Models
 @model List<UserBuildsViewModel>
+<div class="container">
+    <div class="row">
+    <div class="col-md-auto">
+        <div class="card" style="width: 15rem; height: 30rem">
+             <a type="button" class="btn"  asp-action="AllUserBuild" asp-route-sortOrder="@ViewBag.NameSort" >By names </a>
+             <a type="button" class="btn"  asp-action="AllUserBuild" asp-route-sortOrder="@ViewBag.LikeSort" >By likes </a>
+        </div>
+    </div>
+        <div class="col-md-auto">
 <div class="app-main-content container-fluid">
             <div class="position-absolute-flex">
                 <div class="scrollable">
@@ -32,5 +41,7 @@
                 </div>
             </div>
         </div>
+        </div>
+   </div>
+</div>
 
-}
