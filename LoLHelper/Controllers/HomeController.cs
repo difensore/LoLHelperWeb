@@ -1,7 +1,10 @@
-﻿using LoLHelper.Interfaces;
+﻿using DAL.Models;
+using LoLHelper.Interfaces;
 using LoLHelper.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
 
@@ -11,15 +14,17 @@ namespace LoLHelper.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDataProvider _dataprovider;
-        public HomeController(ILogger<HomeController> logger, IDataProvider datapovider)
+        private readonly ISortedPaginationBuilder _paginationBuilder;
+        public HomeController(ILogger<HomeController> logger, IDataProvider datapovider,ISortedPaginationBuilder paginationBuilder)
         {
             _logger = logger;
-            _dataprovider = datapovider;    
+            _dataprovider = datapovider;   
+            _paginationBuilder = paginationBuilder;
         }
-
-        public IActionResult Index()
-        {           
-            return View(_dataprovider.GetChamps());
+        public IActionResult Index(SortState sortOrder = SortState.NameAsc, int page = 1)
+        {
+            var model = _dataprovider.GetChamps();
+            return View(_paginationBuilder.CreatebyChamps(sortOrder, page, model)  );
         }
         public IActionResult Description(int champ, int entity)
         {

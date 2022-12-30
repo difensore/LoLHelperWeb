@@ -15,9 +15,9 @@ namespace LoLHelper.Services
         {
             db = context;
         }
-        public List<Champ> GetChamps()
+        public IQueryable<Champ> GetChamps()
         {
-            var champ = db.Champs.ToList();
+            var champ = db.Champs;
             return champ;
         }
         public List<Spell> GetSpells()
