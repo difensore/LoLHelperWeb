@@ -18,6 +18,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts => {
 builder.Services.AddTransient<IDataProvider, DataProvider>();
 builder.Services.AddTransient<IIdentityProvider, IdentityProvider>();
 builder.Services.AddTransient<IPickBuilder, PickBuilder>();
+builder.Services.AddTransient<ISortedPaginationBuilder, SortedPaginationBuilder>();
 
 var app = builder.Build();
 

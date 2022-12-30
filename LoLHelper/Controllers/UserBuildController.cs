@@ -1,7 +1,12 @@
-﻿using LoLHelper.Interfaces;
+﻿using DAL.Models;
+using LoLHelper.Interfaces;
+using LoLHelper.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Xml.Linq;
 
 namespace LoLHelper.Controllers
 {
@@ -10,24 +15,29 @@ namespace LoLHelper.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IDataProvider _provider;
         private readonly IPickBuilder _pickBuilder;
-       public UserBuildController(UserManager<IdentityUser> userManager, IDataProvider dataProvider,IPickBuilder pickBuilder)
+        private readonly ISortedPaginationBuilder _paginationBuilder;
+       public UserBuildController(UserManager<IdentityUser> userManager, IDataProvider dataProvider,IPickBuilder pickBuilder, ISortedPaginationBuilder paginationBuilder)
         {
             _userManager = userManager;
             _provider = dataProvider;
-            _pickBuilder=pickBuilder;
+            _pickBuilder = pickBuilder;
+            _paginationBuilder = paginationBuilder;
+             
         }
-        public IActionResult UserBuild()
-        {            
-            return View(_provider.GetAllUserBuilds(User.FindFirstValue(ClaimTypes.NameIdentifier),"One"));
+        public IActionResult UserBuild(SortState sortOrder = SortState.NameAsc, int page = 1)
+        {
+            var model = _provider.GetAllUserBuilds(User.FindFirstValue(ClaimTypes.NameIdentifier), "One");
+            return View(_paginationBuilder.Create(sortOrder, page, model));
         }        
         public RedirectToRouteResult DelUserBuild(int id)
         {
             _pickBuilder.DeleteBuild(id);
             return RedirectToRoute(new { controller = "UserBuild", action = "UserBuild" });
         }
-        public IActionResult AllUserBuild()
+        public IActionResult AllUserBuild(SortState sortOrder = SortState.NameAsc, int page = 1)
         {
-            return View("Userbuild", _provider.GetAllUserBuilds( User.FindFirstValue(ClaimTypes.NameIdentifier), "All"));
+            var model = _provider.GetAllUserBuilds(User.FindFirstValue(ClaimTypes.NameIdentifier), "All");            
+            return View(_paginationBuilder.Create(sortOrder, page, model));
         }
         public RedirectToRouteResult Like(int build)
         {
@@ -39,6 +49,5 @@ namespace LoLHelper.Controllers
             _provider.UpdateLike(User.FindFirstValue(ClaimTypes.NameIdentifier), build);
             return RedirectToRoute(new { controller = "UserBuild", action = "AllUserBuild" });
         }
-
     }
 }
