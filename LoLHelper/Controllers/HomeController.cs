@@ -11,13 +11,11 @@ using System.Diagnostics;
 namespace LoLHelper.Controllers
 {
     public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
+    {        
         private readonly IDataProvider _dataprovider;
         private readonly ISortedPaginationBuilder _paginationBuilder;
-        public HomeController(ILogger<HomeController> logger, IDataProvider datapovider,ISortedPaginationBuilder paginationBuilder)
-        {
-            _logger = logger;
+        public HomeController( IDataProvider datapovider,ISortedPaginationBuilder paginationBuilder)
+        {            
             _dataprovider = datapovider;   
             _paginationBuilder = paginationBuilder;
         }
