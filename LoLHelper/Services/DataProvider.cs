@@ -101,7 +101,7 @@ namespace LoLHelper.Services
             var MainRune = db.ExtraRunes.ToList();
             return MainRune;
         }
-        public List<UserBuildsViewModel> GetAllUserBuilds(string user,string forwhat)
+        public IQueryable<UserBuildsViewModel> GetAllUserBuilds(string user,string forwhat)
         {                
                 List<UserBuildsViewModel> model = new List<UserBuildsViewModel>();
             IQueryable<UsersBuild> some = db.UsersBuilds.Where(p => p.UserId == user); 
@@ -126,7 +126,7 @@ namespace LoLHelper.Services
                 }                                     
                     model.Add(new UserBuildsViewModel { pick = _pick, champ = _champ, like=_like, currentUserLike=_currentUserLike });
                 }
-                return model;                       
+                return model.AsQueryable();                       
         }
         
         public void UpdateLike(string user, int build)
