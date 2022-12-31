@@ -12,13 +12,12 @@ namespace LoLHelper.Controllers
 {
     public class UserBuildController:Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        
         private readonly IDataProvider _provider;
         private readonly IPickBuilder _pickBuilder;
         private readonly ISortedPaginationBuilder _paginationBuilder;
-       public UserBuildController(UserManager<IdentityUser> userManager, IDataProvider dataProvider,IPickBuilder pickBuilder, ISortedPaginationBuilder paginationBuilder)
-        {
-            _userManager = userManager;
+       public UserBuildController(IDataProvider dataProvider,IPickBuilder pickBuilder, ISortedPaginationBuilder paginationBuilder)
+        {            
             _provider = dataProvider;
             _pickBuilder = pickBuilder;
             _paginationBuilder = paginationBuilder;
@@ -46,7 +45,7 @@ namespace LoLHelper.Controllers
             {
                 return RedirectToRoute(new { controller = "Account", action = "login" });
             } 
-            _provider.UpdateLike(User.FindFirstValue(ClaimTypes.NameIdentifier), build);
+            _provider.UpdateLike(user, build);
             return RedirectToRoute(new { controller = "UserBuild", action = "AllUserBuild" });
         }
     }
