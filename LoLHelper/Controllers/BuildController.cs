@@ -16,14 +16,12 @@ namespace LoLHelper.Controllers
 {
     public class BuildController : Controller
     {
-        private readonly IDataProvider _dataprovider;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IDataProvider _dataprovider;        
         private readonly IPickBuilder _pb;
 
-        public BuildController(IDataProvider datapovider, UserManager<IdentityUser> userManager, IPickBuilder pb)
+        public BuildController(IDataProvider datapovider,IPickBuilder pb)
         {
-            _dataprovider = datapovider;
-            _userManager=userManager;
+            _dataprovider = datapovider;            
             _pb=pb;
         }
         [HttpGet]
