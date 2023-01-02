@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:\"Server=DESKTOP-SHI92TP::SQLEXPRESS;Database=LolHelper;Trusted_Connection=True;MultipleActiveResultSets=true;\""
+    }
+  }
+}
