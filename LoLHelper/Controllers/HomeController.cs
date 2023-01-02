@@ -26,7 +26,14 @@ namespace LoLHelper.Controllers
         }
         public IActionResult Description(int champ, int entity)
         {
-            return View(_dataprovider.GetChampAsync(champ, entity).Result);
+            try
+            {
+                return View(_dataprovider.GetChampAsync(champ, entity).Result);
+            }
+            catch
+            {
+                return View("ErrorWithContr");
+            }
         }
         public IActionResult Contrpick(string champname)
         {

@@ -27,6 +27,11 @@ namespace LoLHelper.Controllers
         [HttpGet]
         public IActionResult Build()
         {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (user == null)
+            {
+                return RedirectToRoute(new { controller = "Account", action = "login" });
+            }
             PickViewModel _pickViewModel = new PickViewModel();
             var champs = _dataprovider.GetChamps();
             var items = _dataprovider.GetItems();

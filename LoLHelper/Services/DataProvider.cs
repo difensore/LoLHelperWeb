@@ -54,7 +54,7 @@ namespace LoLHelper.Services
              Pick pick;
             if (entity == 1)
             {
-                 pick=db.Picks.First(x => x.Champ == champ);
+                 pick=db.Picks.Where(x=>x.UserBuild==0).First(x => x.Champ == champ);
             }
             else
             {
