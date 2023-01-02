@@ -1,0 +1,23 @@
+﻿@model List<Item>
+<div class="app-main-content container-fluid">
+            <div class="position-absolute-flex">
+                <div class="scrollable">
+                    <div id="scroll-content-demo" class="d-flex flex-column flex-grow-1">
+                        <div class="row">                           
+                @foreach (var item in Model)
+                {
+                                <div class="col">
+                                         <div class="card" style="width: 12rem; height: 20rem; margin: 10px ;">
+                                        <img class="card-img-top" src="data:image;base64,@item.Image" alt="Card image cap">
+                                          <div class="card-body">
+                                              <p class="card-title">@item.Name</p>                                               
+                                                  <a asp-action="DescriptionItem" asp-route-item="@item.Id" class="btn btn-primary align-text-bottom">Overwiev</a>
+                                                  </div>                                         
+                                     </div>
+                                 </div>   
+                }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

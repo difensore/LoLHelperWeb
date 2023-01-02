@@ -1,0 +1,83 @@
+﻿@model PickManager
+<div class="container">
+  <div class="row">
+    <div class="col-md-auto">
+      <div class="card" style="width: 18rem;">
+          <h5 class="card-title text-center">@Model.champ.Name</h5>
+              <img class="card-img-top" src="data:image;base64,@Model.champ.Image" height="300" alt="Card image cap">    
+      </div>
+      <div class="card" style="width: 18rem;" >
+          <h5 class="cardt-title text-center" >Runes</h5>         
+           <table>
+           <tbody>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.MainRune.Image" title="@Model.MainRune.Name" width="50" height="50" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondMainRune.Image" title="@Model.SecondMainRune.Name" width="50" height="50" alt="Card image cap"></td>
+    </tr>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstRune.Image" title="@Model.FirstRune.Name" width="40" height="40" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstRuneS.Image" title="@Model.FirstRuneS.Name" width="30" height="30" alt="Card image cap"></td>
+    </tr>
+    <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondRune.Image" title="@Model.SecondRune.Name" width="30" height="30" alt="Card image cap"></td>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondRuneS.Image" title="@Model.SecondRuneS.Name" width="30" height="30" alt="Card image cap"></td>
+    </tr>
+     <tr>
+      <td><img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdRune.Image" title="@Model.ThirdRune.Name" width="30" height="30" alt="Card image cap"></td>
+       <td rowspan="2">
+           <div class="rounded mx-auto d-block">
+           <img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstExtraRune.Image" title="@Model.FirstExtraRune.Name" width="30" height="30" alt="Card image cap">
+           <img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondExtraRune.Image" title="@Model.SecondExtraRune.Name" width="30" height="30" alt="Card image cap">
+           <img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdExtraRune.Image" title="@Model.ThirdExtraRune.Name" width="30" height="30" alt="Card image cap">
+           </div>           
+       </td>
+    </tr>
+      <tr>
+      <td> <img class="rounded mx-auto d-block" src="data:image;base64,@Model.FourthRune.Image" width="30" height="30" alt="Card image cap"></td>    
+      <td rowspan="2"></td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+    </div>
+    <div class="col-md-auto">
+        <div class="card" style="width: 35rem;">
+          <h5 class="card-title text-center">Abilities</h5>
+            <p>Q:@Model.champ.Q</p>
+            <p>W:@Model.champ.W</p> 
+            <p>E:@Model.champ.E</p> 
+            <p>R:@Model.champ.R</p>  
+        </div>
+        <div class="card" style="width: 35rem;">
+            <h5 class="card-title text-center">Spotlight</h5>
+            <div class="embed-responsive embed-responsive-16by9 text-center">
+                 <iframe class="embed-responsive-item" src="@("https://www.youtube.com/embed/"+Model.champ.Link)" width="533" height="300" allowfullscreen></iframe>
+            </div>
+        </div>
+</div>    
+    <div class="col-md-auto">
+    <div class="card" style="width: 18rem;">
+          <h5 class="card-title text-center">Items:</h5>
+          <table>
+           <tbody>
+    <tr>
+      <td>
+          <a asp-action="DescriptionItem" asp-route-item="@Model.FirstStartedItem.Id"><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstStartedItem.Image" title="@(Model.FirstStartedItem.Price+" Gold")" width="70" height="70" alt="Card image cap"></a>
+          </td>
+      <td> <a asp-action="DescriptionItem" asp-route-item="@Model.SecondStartedItem.Id"><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondStartedItem.Image" title="@(Model.SecondStartedItem.Price+" Gold")" width="70" height="70" alt="Card image cap"></a></td>
+      <td> <a asp-action="DescriptionItem" asp-route-item="@Model.ThirdStartedItem.Id"><img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdStartedItem.Image" title="@(Model.ThirdStartedItem.Price+" Gold")" width="70" height="70" alt="Card image cap"></a></td>
+    </tr>
+    <tr>
+      <td> <a asp-action="DescriptionItem" asp-route-item="@Model.FirstMainItem.Id"><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FirstMainItem.Image" width="70" title="@(Model.FirstMainItem.Price+" Gold")" height="70" alt="Card image cap"></a></td>
+       <td><a asp-action="DescriptionItem" asp-route-item="@Model.SecondMainItem.Id"><img class="rounded mx-auto d-block" src="data:image;base64,@Model.SecondMainItem.Image" width="70"  title="@(Model.SecondMainItem.Price+" Gold")" height="70" alt="Card image cap"></a></td>
+       <td><a asp-action="DescriptionItem" asp-route-item="@Model.ThirdMainItem.Id"><img class="rounded mx-auto d-block" src="data:image;base64,@Model.ThirdMainItem.Image" title="@(Model.ThirdMainItem.Price+" Gold")" width="70" height="70" alt="Card image cap"></a></td>
+    </tr>    
+  </tbody>
+</table>
+       <a asp-action="DescriptionItem" asp-route-item="@Model.FivthMainItem.Id"><img class="rounded mx-auto d-block" src="data:image;base64,@Model.FivthMainItem.Image" title="@(Model.ThirdMainItem.Price+" Gold")" width="70" height="70" alt="Card image cap"></a>   
+      </div>     
+    </div>
+  </div>
+  </div>
+  
+    

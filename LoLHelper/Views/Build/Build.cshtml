@@ -1,0 +1,86 @@
+﻿@using DAL.ViewModels
+@model PickViewModel
+<div class="container">
+  <div class="row">
+      <div class="col-md">
+      </div>
+      <div class="col-md-auto">
+          <div class="card" style="width: 15rem;">
+              <h5 class="card-title text-center">Create your build:</h5>
+          <form method="post" asp-controller="Build" asp-action="Build">    
+    <select class="form-select"  asp-items="@Model.champs" asp-for="SelectedChamp">
+        <option>Choose champion</option>
+    </select>
+    <select class="form-select" asp-for="SelectedFirstSpell" asp-items="@Model.spells">
+        <option>Choose first spell</option>
+    </select>
+    <select class="form-select" asp-for="SelectedSecondSpell" asp-items="@Model.spells">
+        <option>Choose second spell</option>
+    </select>
+    <select class="form-select" asp-for="SelectedFirstMainRune" asp-items="@Model.mainRunes">
+        <option>Choose first main rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedFirstRune" asp-items="@Model.runes">
+        <option>Choose rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedSecondRune" asp-items="@Model.runes">
+        <option>Choose rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedThirdRune" asp-items="@Model.runes">
+        <option>Choose rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedFourthRune" asp-items="@Model.runes">
+        <option>Choose rune</option>
+    </select>    
+    <select class="form-select" asp-for="SelectedSecondMainRune" asp-items="@Model.mainRunes">
+        <option>Choose second main rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedFirstRuneS" asp-items="@Model.runes">
+        <option>Choose rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedSecondRuneS" asp-items="@Model.runes">
+        <option>Choose rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedFirstExtraRune" asp-items="@Model.extraRunes">
+        <option>Choose extra rune</option>
+    </select>
+     <select class="form-select" asp-for="SelectedSecondExtraRune" asp-items="@Model.extraRunes">
+        <option>Choose extra rune</option>
+    </select>
+    <select class="form-select" asp-for="SelectedThirdExtraRune" asp-items="@Model.extraRunes">
+        <option>Choose extra rune</option>
+    </select>       
+    <select class="form-select" asp-for="SelectedThirdExtraRune" asp-items="@Model.items">
+        <option>Choose extra rune</option>
+    </select> 
+    <select class="form-select" asp-for="SelectedFirstStartedItem" asp-items="@Model.items">
+        <option>Choose  started item</option>
+    </select> 
+    <select class="form-select" asp-for="SelectedSecondStartedItem" asp-items="@Model.items">
+        <option>Choose started item</option>
+    </select> 
+    <select class="form-select" asp-for="SelectedThirdStartedItem" asp-items="@Model.items">
+        <option>Choose started item</option>
+    </select> 
+    <select class="form-select" asp-for="SelectedFirstMainItem" asp-items="@Model.items">
+        <option>Choose started item</option>
+    </select> 
+     <select class="form-select" asp-for="SelectedSecondMainItem" asp-items="@Model.items">
+        <option>Choose started item</option>
+    </select> 
+     <select class="form-select" asp-for="SelectedThirdMainItem" asp-items="@Model.items">
+        <option>Choose started item</option>
+    </select> 
+     <select class="form-select" asp-for="SelectedFivthMainItem" asp-items="@Model.items">
+        <option>Choose started item</option>
+    </select> 
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Create" />
+    </div>
+</form>
+        </div>
+      </div>
+      <div class="col-md">
+      </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@using DAL.Models
+@model SortedPaginationViewModel
+<div class="container">
+    <div class="row">
+    <div class="col-md-auto">
+        <div class="card" style="width: 15rem; height: 30rem">
+            <h3 class="text-center">Sort:</h3>
+             <a type="button" class="btn"  asp-action="AllUserBuild" asp-route-sortOrder="@(Model.SortViewModel.NameSort)" >By names </a>
+             <a type="button" class="btn"  asp-action="AllUserBuild" asp-route-sortOrder="@(Model.SortViewModel.LikeSort)" >By likes </a>
+        </div>
+    </div>
+        <div class="col-sm">
+<div class="app-main-content container-fluid">
+            <div class="position-absolute-flex">
+                <div class="scrollable">
+                    <div id="scroll-content-demo" class="d-flex flex-column flex-grow-1">
+                        <div class="row">                           
+                                @foreach (var item in Model.UserBuilds)
+                                {
+                                    <div class="col">
+                                         <div class="card" style="width: 18rem; margin: 10px ;">
+                                            <img class="card-img-top" src="data:image;base64,@item.champ.Image" height="300" alt="Card image cap">
+                                              <div class="card-body">
+                                                  <h5 class="card-title">@item.champ.Name</h5>               
+                                                          <a asp-controller="Home" asp-action="Description" asp-route-champ="@item.pick.Id"  asp-route-entity="0" class="btn btn-primary">Overview</a>                                                           
+                                                @if (item.currentUserLike == true)
+                                                {
+                                                                    <a type="button" class="btn btn-primary"  asp-action="Like" asp-route-build="@item.pick.Id" >Likes: @item.like </a>
+                                                }
+                                                else
+                                                {
+                                                                    <a type="button" class="btn"  asp-action="Like" asp-route-build="@item.pick.Id" >Likes: @item.like </a>
+                                                }
+
+                                              </div>
+                                         </div>
+                                     </div>   
+                                }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="margin: 20px">
+            @if (Model.PageViewModel.HasPreviousPage)
+            {
+                <a asp-action="AllUserBuild"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"       
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-primary">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Previous
+            </a>
+            }
+            @if (Model.PageViewModel.HasNextPage)
+            {
+                <a asp-action="AllUserBuild"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"       
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-primary">
+                Next
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+            }
+            </div>
+        </div>
+   </div>
+</div>
+
