@@ -39,7 +39,7 @@ namespace LoLHelper.Controllers
             var model = _provider.GetAllUserBuilds(User.FindFirstValue(ClaimTypes.NameIdentifier), "All");            
             return View(_paginationBuilder.Create(sortOrder, page, model));
         }
-        public RedirectToRouteResult Like(int build)
+       /* public RedirectToRouteResult Like(int build)
         {
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (user == null)
@@ -48,13 +48,13 @@ namespace LoLHelper.Controllers
             } 
             _provider.UpdateLike(user, build);
             return RedirectToRoute(new { controller = "UserBuild", action = "AllUserBuild" });
-        }
+        }*/
         public IActionResult newLike(int build)
         {
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (user == null)
             {
-                return RedirectToRoute(new { controller = "Account", action = "login" });
+                return null; //RedirectToRoute(new { controller = "Account", action = "login" });
             }
             _provider.UpdateLike(user, build);
             return PartialView("_Like", _provider.GetLikes(User.FindFirstValue(ClaimTypes.NameIdentifier),build));           

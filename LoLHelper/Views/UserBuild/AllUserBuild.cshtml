@@ -25,11 +25,15 @@
                                                           <a asp-controller="Home" asp-action="Description" asp-route-champ="@item.pick.Id"  asp-route-entity="0" class="btn btn-primary">Overview</a>                                                           
                                                 @if (item.currentUserLike == true)
                                                 {
-                                                                    <a type="button" class="btn btn-primary"  asp-action="Like" asp-route-build="@item.pick.Id" >Likes: @item.like </a>
+                                                                            <a href="" data-ajax="true"   data-ajax-url="/UserBuild/newLike/?build=@item.pick.Id" data-ajax-update="#@item.pick.Id"  type="button" class="btn" >
+                                                                                                         <div id="@item.pick.Id">Liked:@item.like</div>       
+                                                                            </a>
                                                 }
                                                 else
                                                 {
-                                                                    <a type="button" class="btn"  asp-action="Like" asp-route-build="@item.pick.Id" >Likes: @item.like </a>
+                                                                              <a type="button" class="btn"  data-ajax="true" href=""  data-ajax-url="/UserBuild/newLike/?build=@item.pick.Id" data-ajax-update="#@item.pick.Id" >
+                                                                                                <div id="@item.pick.Id">Likes:@item.like</div>
+                                                                              </a>
                                                 }
 
                                               </div>
