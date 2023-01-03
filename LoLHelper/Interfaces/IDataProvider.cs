@@ -16,6 +16,7 @@ namespace LoLHelper.Interfaces
         public List<ExtraRune> GetAlExtraRunes();
         public IQueryable<UserBuildsViewModel> GetAllUserBuilds(string user, string forwhat);
         public void UpdateLike(string user, int build);
+        public LikeAjaxVievModel GetLikes(string user,int build);
 
     }
 }

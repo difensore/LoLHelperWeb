@@ -1,0 +1,11 @@
+﻿@using DAL.Models
+@model LikeAjaxVievModel
+@if(@Model.currentUserlike)
+{
+<div>Liked:@Model.LikeCount </div>
+}
+else{
+    <div>Likes:@Model.LikeCount </div>
+}
+    
+    

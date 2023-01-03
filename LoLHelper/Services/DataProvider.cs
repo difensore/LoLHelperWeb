@@ -143,5 +143,18 @@ namespace LoLHelper.Services
                 db.SaveChanges(); 
             }            
         }
+        public LikeAjaxVievModel GetLikes(string user,int build)
+        {
+            bool _currentUserLike = true;
+            try
+            {
+                var like = db.Likes.Where(p => p.UserId == user).First(p => p.BuildId == build);
+            }
+            catch
+            {
+                _currentUserLike=false ;
+            }
+                return new LikeAjaxVievModel { currentUserlike=_currentUserLike,LikeCount=db.Likes.Where(p => p.BuildId == build).Count() };
+        }
     }
 }

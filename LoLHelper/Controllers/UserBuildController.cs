@@ -16,6 +16,7 @@ namespace LoLHelper.Controllers
         private readonly IDataProvider _provider;
         private readonly IPickBuilder _pickBuilder;
         private readonly ISortedPaginationBuilder _paginationBuilder;
+        
        public UserBuildController(IDataProvider dataProvider,IPickBuilder pickBuilder, ISortedPaginationBuilder paginationBuilder)
         {            
             _provider = dataProvider;
@@ -47,6 +48,16 @@ namespace LoLHelper.Controllers
             } 
             _provider.UpdateLike(user, build);
             return RedirectToRoute(new { controller = "UserBuild", action = "AllUserBuild" });
+        }
+        public IActionResult newLike(int build)
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (user == null)
+            {
+                return RedirectToRoute(new { controller = "Account", action = "login" });
+            }
+            _provider.UpdateLike(user, build);
+            return PartialView("_Like", _provider.GetLikes(User.FindFirstValue(ClaimTypes.NameIdentifier),build));           
         }
     }
 }
