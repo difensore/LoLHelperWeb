@@ -1,5 +1,7 @@
 ﻿@using DAL.Models
+@using Microsoft.AspNetCore.Identity
 @model SortedPaginationViewModel
+@inject SignInManager<IdentityUser> SignInManager
 <div class="container">
     <div class="row">
     <div class="col-md-auto">
@@ -25,19 +27,25 @@
                                                       <a asp-controller="Home" asp-action="Description" asp-route-champ="@item.pick.Id"  asp-route-entity="0" class="btn btn-primary">Overview</a>
                                                           <a type="button" class="btn btn-primary"  asp-action="DelUserbuild" asp-route-id="@item.pick.Id" >Delete</a>
                                                
-                                                          @if (item.currentUserLike==true)
-                                                          {
-                                                                            <a href="" data-ajax="true"   data-ajax-url="/UserBuild/newLike/?build=@item.pick.Id" data-ajax-update="#@item.pick.Id"  type="button" class="btn" >
-                                                                                                 <div id="@item.pick.Id">Liked:@item.like</div>       
-                                                                            </a>
-                                                          }
-                                                          else
-                                                          {
-                                                                                    <a type="button" class="btn"  data-ajax="true" href=""  data-ajax-url="/UserBuild/newLike/?build=@item.pick.Id" data-ajax-update="#@item.pick.Id" >
-                                                                                        <div id="@item.pick.Id">Likes:@item.like</div>
-                                                                             </a>
-                                                          }
-                                                          
+                                                @if (SignInManager.IsSignedIn(User))
+                                                {
+                                                    @if (item.currentUserLike == true)
+                                                    {
+                                                        <a href="" data-ajax="true"   data-ajax-url="/UserBuild/newLike/?build=@item.pick.Id" data-ajax-update="#@item.pick.Id"  type="button" class="btn" >
+                                                            <div id="@item.pick.Id">Liked:@item.like</div>       
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a type="button" class="btn"  data-ajax="true" href=""  data-ajax-url="/UserBuild/newLike/?build=@item.pick.Id" data-ajax-update="#@item.pick.Id" >
+                                                            <div id="@item.pick.Id">Likes:@item.like</div>
+                                                        </a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                                    <a type="button" class="btn" asp-controller="Account" asp-action="Login">Likes:@item.like</a>
+                                                }
                                           </div>
                                      </div>
                                  </div>   
